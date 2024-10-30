@@ -1,0 +1,116 @@
+:root {
+  --base-padding: 1rem;
+  --radius: 0.25rem;
+  --neutral: light-dark(#e4e4e7, #171717);
+  --primary: #3B82F6;
+  --danger: #ef4444;
+  --warning: #fde047;
+  font-family: Arial;
+  color-scheme: light dark;
+  color: light-dark(black, #e4e4e7);
+  background-color: light-dark(white, #27272a);
+}
+.warning {background-color: var(--warning);color:var(--neutral);}
+.danger {
+  background-color: var(--danger);
+}
+.primary {
+  background-color: var(--primary)
+}
+.ghost {
+  background-color: transparent;
+}
+.neutral {background-color: var(--neutral);}
+button:focus {outline:none;}
+button {
+	padding-top: calc(var(--base-padding) * 0.5);
+	padding-bottom: calc(var(--base-padding) * 0.5);
+	padding-left: var(--base-padding);
+	padding-right: var(--base-padding);
+	border-radius: var(--radius);
+	transition-timing-function: ease;
+	transition-duration: 0.3s;
+	border-style: none;
+}
+button:active {
+	transform: scale(95%);
+}
+button:hover {
+	filter: brightness(94%);
+}
+input, select {
+	padding: calc(var(--base-padding) * 0.5);
+	border-radius: var(--radius);
+	background-color: var(--neutral);
+  border-style: none;
+  transition-property: outline-offset;
+  transition-timing-function: ease;
+  transition-duration: 0.1s;
+  outline-offset: 0px;
+}
+input, select:focus {
+  outline-width: 6px;
+  outline-color: var(--primary);
+  outline-offset: 2px;
+}
+@keyframes dialog {
+  from {
+    transform: scale(85%);
+    opacity: 50%;
+  }
+  to {
+    transform: scale(100%);
+    opacity: 100%;
+  }
+}
+dialog {
+  min-width: 500px;
+  width: 50vw;
+  height: 50vh;
+  border-style: none;
+  border-radius: calc(var(--radius) * 1.5);
+  animation: dialog 0.3s ease;
+  background-color: var(--neutral);
+}
+.block {
+  width: 100%;
+}
+.combo button, .combo input {
+  margin:0px 0px;
+  border-radius: 0px;
+}
+
+.combo input:focus {
+  outline-offset: 0px;
+}
+.combo {
+  gap: 0px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  width: fit-content;
+  display: flex;
+  
+}
+.combo button:active {
+  transform: none;
+}
+.card {
+  display: flex;
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-direction: column;
+  box-shadow: 10px 10px 37px -14px rgba(0,0,0,0.75);
+}
+.card.horizontal {
+  flex-direction: row;
+}
+.card:not(.horizontal) .card-top {
+  width: 100%;
+}
+.card.horizonal .card-top {
+  height:100%;
+}
+.card .content {
+  padding: var(--base-padding)
+}
+dialog:focus {outline:none;}

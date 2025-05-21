@@ -2,27 +2,44 @@
   <title>Pearnet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="Fp1V_EGGA35iTpMA7s8pEa_uLc_9rQUAZjNccpDgVQI" />
 </head>
 
-<body class="font-sans bg-gradient-to-br from-blue-400   to-purple-900">
-  <header class="text-center">
-    <h1 class="text-5xl my-4">pearnet</h1>
-    <h2 class="text-xl">I like coding stuff, here's some stuff i've made:</h2>
-  </header>
-  <main class="flex justify-center flex-wrap">
-    <a target="_blank" href="https://geocrapper.vercel.app"><img
-        class="transition hover:scale-110 duration-700 rounded-lg w-72 m-4 inline-block"
-        src="/assets/links/geocrapper_thumb.jpg" alt="Geocrapper"></a>
-    <a target="_blank" href="https://pearmusic-livid.vercel.app/"><img
-        class="transition hover:scale-110 duration-700 rounded-lg w-72 m-4 inline-block"
-        src="/assets/links/music_thumb.jpg" alt="Pear Music"></a>
-    <a target="_blank" href="/lemon"><img
-        class="transition hover:scale-110 duration-700 rounded-lg w-72 m-4 inline-block"
-        src="/assets/links/lemon_thumb.jpg" alt="Lemon Framework"></a>
-  </main>
-  <p class="text-center">And I really hope to add to that list.</p>
+<body
+  class="font-sans h-screen bg-neutral-50 dark:bg-neutral-900 text-neutral-500 p-8 md:p-16 lg:p-16 flex flex-col justify-between">
+  <div class="flex justify-between mb-12 flex-col">
+    <div class="flex-row justify-between items-center flex">
+      <a href="/"><h1 class="hover:underline font-bold text-4xl">Pearnet</h1></a>
+      <div class="flex-row gap-4 flex">
+        <a class="hover:underline" href="/blog">blog</a>
+        <a href="/about" class="hover:underline">about</a>
+      </div>
+    </div>
 
+    <h2>I like coding stuff.</h2>
+
+  </div>
+
+  <div class="grid gap-16 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
+    <a href="https://geocrapper.vercel.app/" class="block hover:scale-105 hover:drop-shadow-2xl transition p-6 rounded-lg border-solid aspect-square bg-neutral-50 dark:bg-neutral-800 bg-size-[50%] bg-center"
+      style="background-image: url(https://emojiapi.dev/api/v1/toilet.svg);">
+      <span class="text-2xl text-shadow-lg text-shadow-gray-600 font-bold text-orange-400">Geocrapper</span>
+    </a>
+    <a href="https://pear-music.vercel.app" class="block hover:scale-105 hover:drop-shadow-2xl transition p-6 rounded-lg border-solid aspect-square bg-neutral-50 dark:bg-neutral-800 text-orange-400  bg-size-[50%] bg-center"
+      style="background-image: url(https://emojiapi.dev/api/v1/headphone.svg);">
+      <span class="text-2xl text-shadow-lg text-shadow-gray-600 font-bold">Pear Music</span>
+    </a>
+
+    <a href="/lemon" class="block hover:scale-105 hover:drop-shadow-2xl transition p-6 rounded-lg border-solid aspect-square bg-neutral-50 dark:bg-neutral-800 text-orange-400  bg-size-[50%] bg-center"
+      style="background-image: url(https://emojiapi.dev/api/v1/lemon.svg);">
+      <span class="text-2xl text-shadow-lg text-shadow-gray-600 font-bold">Lemon</span>
+    </a>
+
+    <a href="https://github.com/DeviousPear" class="block hover:scale-105 hover:drop-shadow-2xl transition p-6 rounded-lg border-solid aspect-square bg-neutral-50 dark:bg-neutral-800 text-orange-400  bg-size-[50%] bg-center"
+      style="background-image: url(https://www.svgrepo.com/show/475654/github-color.svg);">
+      <span class="text-2xl text-shadow-lg text-shadow-gray-600 font-bold">Github</span>
+    </a>
+  </div>
 </body>

@@ -1,18 +1,20 @@
 @import "tailwindcss";
 @theme {
     /* ... */
-    --color-bg: black;
-    --color-fg: white;
-  }
-  body {
-    @apply bg-bg text-fg flex flex-col gap-10 items-center justify-between h-screen font-mono overflow-hidden cursor-none;
-  }
+    --color-bg: light-dark(white, black);
+    --color-fg: light-dark(black, white);
+}
+body {
+    color-scheme: light dark;
+    @apply pt-6 md:pt-0 lg:pt-0 xl:pt-0 bg-bg text-fg flex flex-col gap-10 items-center justify-between h-screen font-mono overflow-hidden cursor-none;
+}
 
-  .line {
-    @apply w-px h-full bg-fg/50
-  }
-  .box {
+.line {
+    @apply w-px h-full bg-fg/50;
+}
+.box {
     @apply inline-flex justify-center items-center w-4 h-4;
-
-  }
-  
+}
+.lines {
+    background-image: repeating-linear-gradient(-45deg, var(--color-bg), var(--color-bg) 13px, color-mix(in oklab, var(--color-fg) 25%, transparent) 13px, color-mix(in oklab, var(--color-fg) 25%, transparent) 14px)
+}

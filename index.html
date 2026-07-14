@@ -28,7 +28,8 @@
             <div
                 class="bg-bg grid-cols-2 grid-rows-4 cursor-pointer grid lg:grid-cols-4 lg:grid-rows-2 md:grid-cols-4 md:grid-rows-2 border-fg/25 border-r border-b transition"
             >
-                <div
+                <a
+                    href="https://pear-music.vercel.app"
                     class="group w-50 h-50 aspect-square border-t border-l border-fg/25 outline outline-transparent hover:outline-cyan-500 transition-colors -outline-offset-1 p-5 flex flex-col justify-between text-fg/45 hover:text-cyan-500"
                 >
                     <div class="flex justify-between">
@@ -48,7 +49,7 @@
                     <div class="text-xs">
                         Free music streaming. Data from 🍎, streams from YT.
                     </div>
-                </div>
+                </a>
                 <div
                     class="group w-50 h-50 aspect-square border-t border-l border-fg/25 outline outline-transparent hover:outline-teal-400 transition-colors -outline-offset-1 p-5 flex flex-col justify-between text-fg/45 hover:text-teal-400"
                 >
@@ -70,7 +71,8 @@
                         A TV-navigable interface to watch movies and shows.
                     </div>
                 </div>
-                <div
+                <a
+                    href="/tubular/"
                     class="group w-50 h-50 aspect-square border-t border-l border-fg/25 outline outline-transparent hover:outline-red-400 transition-colors -outline-offset-1 p-5 flex flex-col justify-between text-fg/45 hover:text-red-400"
                 >
                     <div class="flex justify-between">
@@ -90,7 +92,7 @@
                     <div class="text-xs">
                         No-BS YouTube downloader. Paste a link and download
                     </div>
-                </div>
+                </a>
                 <div
                     class="group w-50 h-50 aspect-square border-t border-l border-fg/25 outline outline-transparent hover:outline-green-500 transition-colors -outline-offset-1 p-5 flex flex-col justify-between text-fg/45 hover:text-green-500"
                 >
@@ -194,7 +196,7 @@
         const container = document.getElementById("line-container");
         const flipped = (a) => (360 - (a % 360)) % 360;
         const SIZE = 16;
-        const PER_LINE = Math.floor(window.innerWidth / SIZE);
+        let PER_LINE = Math.floor(window.innerWidth / SIZE);
         const nToCoords = (n) => ({
             x: (n % PER_LINE) * SIZE,
             y: Math.floor(n / PER_LINE) * SIZE,
@@ -213,5 +215,10 @@
             });
         }
         for (let i = 0; i < 7500; i++) createLine(i);
+        window.onresize = () => {container.innerHTML = ""
+          container.innerHTML = ""
+          PER_LINE = Math.floor(window.innerWidth / SIZE);
+          for (let i = 0; i < 7500; i++) createLine(i);
+        }
     </script>
 </html>

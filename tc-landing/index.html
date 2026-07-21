@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcendent Campus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playwrite+US+Modern:wght@400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background-color: #111116;
+      font-family: 'Inter', sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    .font-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .font-playwrite { font-family: 'Playwrite US Modern', cursive; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+
+    .flip-word {
+      font-family: 'Playwrite US Modern', cursive;
+      font-weight: 400;
+      display: block;
+      height: 1.4em;
+      line-height: 1.4;
+    }
+
+    .btn-install {
+      background-color: #eee;
+      border-radius: 15px;
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-install:hover { opacity: 0.85; }
+
+    .btn-outline {
+      background: rgba(238, 238, 238, 0.13);
+      border-radius: 15px;
+      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-outline:hover { opacity: 0.85; }
+
+    .features-container {
+      display: flex;
+      position: relative;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    .features-text-scroll {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .feature-text-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 37px;
+      padding: 40px;
+    }
+
+    .features-visual-sticky {
+      position: relative;
+      width: 583px;
+      height: 679px;
+      flex-shrink: 0;
+      overflow: visible;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .features-visual-sticky.is-visible {
+      opacity: 1;
+    }
+
+    @media (min-width: 769px) {
+      .features-visual-sticky.is-sticky {
+        position: sticky;
+        top: 50%;
+        transform: translateY(-50%);
+        align-self: auto;
+      }
+    }
+
+    #feature-blobs circle {
+      transition: fill 0.6s ease;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+      background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuZGV2L3N2Z2pzIiB2aWV3Qm94PSIwIDAgODAwIDgwMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI4MDAiPjxnIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2U9ImhzbGEoMCwgMCUsIDEwMCUsIDEuMDApIiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iMCIgeT0iMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSIyMDAiIHk9IjAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iNDAwIiB5PSIwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjYwMCIgeT0iMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSI4MDAiIHk9IjAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iMCIgeT0iMjAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjIwMCIgeT0iMjAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjQwMCIgeT0iMjAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjYwMCIgeT0iMjAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjgwMCIgeT0iMjAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjAiIHk9IjQwMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSIyMDAiIHk9IjQwMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSI0MDAiIHk9IjQwMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSI2MDAiIHk9IjQwMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSI4MDAiIHk9IjQwMCI+PC9yZWN0PjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB4PSIwIiB5PSI2MDAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iMjAwIiB5PSI2MDAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iNDAwIiB5PSI2MDAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iNjAwIiB5PSI2MDAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iODAwIiB5PSI2MDAiPjwvcmVjdD48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeD0iMCIgeT0iODAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjIwMCIgeT0iODAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjQwMCIgeT0iODAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjYwMCIgeT0iODAwIj48L3JlY3Q+PHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHg9IjgwMCIgeT0iODAwIj48L3JlY3Q+PC9nPjwvc3ZnPg==");
+      background-size: 100px 100px;
+      mask-image:radial-gradient(
+  70% 70% at 50% 100%,
+  rgba(255, 255, 255, 1) 0%,
+  rgba(255, 255, 255, 0.7) 25%,
+  rgba(255, 255, 255, 0.25) 60%,
+  rgba(255, 255, 255, 0) 100%
+);
+    }
+
+    .blurred-circles {
+      position: absolute;
+      inset: 0;
+      filter: blur(100px);
+      opacity: 0.7;
+    }
+
+    .feature-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+
+    @keyframes flip-words {
+      0%, 15% { transform: translateY(0); }
+      20%, 35% { transform: translateY(-2.025em); }
+      40%, 55% { transform: translateY(-4.05em); }
+      60%, 75% { transform: translateY(-6.075em); }
+      80%, 95% { transform: translateY(-8.1em); }
+      100% { transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .features-container { flex-direction: column; }
+      .features-visual-sticky {
+        position: sticky;
+        top: 80px;
+        transform: none;
+        width: 100%;
+        height: 400px;
+        z-index: 1;
+      }
+      .feature-text-section {
+        min-height: 70vh;
+        padding: 40px 20px;
+        position: relative;
+        z-index: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="bg-white/5 backdrop-blur-[11.8px] fixed top-[10px] left-[10px] right-[10px] z-50 h-[58px] rounded-[21px] flex items-center px-[14px]">
+    <img src="assets/tc-icon.png" alt="TC" class="w-[30px] h-[30px] rounded-[7px] object-cover">
+    <span class="font-jakarta font-bold text-[20px] ml-[12px] whitespace-nowrap">Transcendent Campus</span>
+    <div class="flex-1"></div>
+    <a href="https://github.com/DeviousPear/TranscendentCampus" target="_blank" class="btn-outline">
+      <img src="assets/github-icon.svg" alt="" class="w-[20px] h-[20px]">
+      <span class="font-inter text-[14px] text-[#f5f5f5]">GitHub</span>
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="flex flex-col items-center pt-[180px] pb-[15px] gap-[46px] px-[10px]">
+    <div class="flex flex-col items-center gap-[46px]">
+      <h1 class="font-jakarta font-bold text-[64px] leading-[1.172] w-[714px] max-w-full">
+        The better way to see your <span class="inline-block overflow-hidden align-bottom h-[1.4em]">
+        <span class="inline-flex flex-col gap-10 [animation:flip-words_12.5s_cubic-bezier(0.22,1,0.36,1)_2s_infinite]">
+            <span class="flip-word" style="color: #3fbc45">grades</span>
+            <span class="flip-word" style="color: #00C3D0">GPA</span>
+            <span class="flip-word" style="color: #F6DE56">assignments</span>
+            <span class="flip-word" style="color: #a78bfa">schedule</span>
+            <span class="flip-word" style="color: #f472b6">transcript</span>
+        </span></span>
+      </h1>
+      <p class="font-inter text-[24px] text-white/75 text-center whitespace-nowrap">
+        The iOS-native client for Infinite Campus
+      </p>
+      <div class="flex gap-[20px] items-center justify-center">
+        <a href="#" class="btn-install">
+          <img src="assets/install-icon.png" alt="" class="w-[14px] h-[17px] object-cover">
+          <span class="font-inter text-[14px] text-black">Install</span>
+        </a>
+        <a href="https://github.com/DeviousPear/TranscendentCampus" target="_blank" class="btn-outline">
+          <img src="assets/github-icon.svg" alt="" class="w-[20px] h-[20px]">
+          <span class="font-inter text-[14px] text-[#f5f5f5]">View Source</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Wrapper -->
+  <div class="features-container">
+    <div class="features-text-scroll">
+      <section class="feature-text-section">
+        <h2 class="font-jakarta font-bold text-[64px] leading-[1.172] whitespace-pre-wrap">100%  Compatible</h2>
+        <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+          Transcendent Campus plugs into your real Infinite Campus account, so your the app accurately displays your grades. All you have to do is log in with Google, and the app will take care of the rest.
+        </p>
+      </section>
+      <section class="feature-text-section">
+        <h2 class="font-jakarta font-bold text-[64px] leading-[1.172]">iOS Native</h2>
+        <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+          Unlike the official app, Transcendent Campus was designed with iOS in mind. It's design is consistent with the rest of iOS, and is written in native Swift and SwiftUI, while the official app is just a wrapper on top of the web app. This also enables Transcendent Campus to offer better integrated features.
+        </p>
+      </section>
+      <section class="feature-text-section">
+        <h2 class="font-jakarta font-bold text-[64px] leading-[1.172]">Widgets</h2>
+        <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+          Check your grades at a glance with simple widgets that show your grades on your home screen. It's such a obviously good idea that I have no idea why they didn't put this in the original app.
+        </p>
+      </section>
+      <section class="feature-text-section">
+        <h2 class="font-jakarta font-bold text-[64px] leading-[1.172]">Social</h2>
+        <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+          Transcendent Campus adds social features you wish Infinite Camus had, like checking what classes your friends are in, or sharing your grades and advice on a test.
+        </p>
+      </section>
+    </div>
+    <div class="features-visual-sticky">
+      <div class="blurred-circles" id="feature-blobs">
+        <svg viewBox="0 0 583 680" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <circle cx="200" cy="250" r="109" fill="#1B9821"/>
+          <circle cx="400" cy="180" r="109" fill="#1B9821"/>
+          <circle cx="300" cy="350" r="109" fill="#1B9821"/>
+          <circle cx="200" cy="480" r="109" fill="#1B9821"/>
+          <circle cx="400" cy="420" r="109" fill="#1B9821"/>
+          <circle cx="300" cy="560" r="109" fill="#1B9821"/>
+        </svg>
+      </div>
+      <img src="assets/feature-bg.png" alt="Feature" class="feature-bg-img object-cover">
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section class="relative flex flex-col items-center justify-center gap-[26px] p-[10px] min-h-[392px] w-full max-w-[1280px] mx-auto">
+      <div class="cta-bg"></div>
+    <div class="relative z-10 flex flex-col items-center gap-[26px]">
+      <h2 class="font-jakarta font-bold text-[42px] text-white/78 text-center leading-[1.2]">Download it now</h2>
+      <a href="#" class="btn-install">
+        <img src="assets/install-icon.png" alt="" class="w-[14px] h-[17px] object-cover">
+        <span class="font-inter text-[14px] text-black">Install</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/70 w-full max-w-[1280px] mx-auto p-[10px] flex items-center justify-between mt-[10px] max-md:flex-col max-md:gap-[10px] max-md:text-center">
+    <div class="flex items-center gap-[10px]">
+      <img src="assets/footer-icon.png" alt="" class="w-[31px] h-[31px] rounded-[7px] object-cover">
+      <span class="font-inter text-[16px] text-white/70 whitespace-nowrap">Transcendent Campus &copy; 2026</span>
+    </div>
+    <span class="font-inter text-[16px] text-white/70 whitespace-nowrap">
+      Built by <span class="text-[#3fbc45]">@DeviousPear</span>
+    </span>
+  </footer>
+
+  <script>
+  (function() {
+    var colors = ['#1B9821', '#00C3D0', '#F6DE56', '#F6DE56'];
+    var container = document.querySelector('.features-container');
+    var circles = document.querySelectorAll('#feature-blobs circle');
+    var visual = document.querySelector('.features-visual-sticky');
+    var firstFeature = document.querySelector('.feature-text-section');
+
+    function hexToRgb(hex) {
+      var r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return r ? [parseInt(r[1], 16), parseInt(r[2], 16), parseInt(r[3], 16)] : [0, 0, 0];
+    }
+
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(function(x) {
+        var h = Math.round(x).toString(16);
+        return h.length === 1 ? '0' + h : h;
+      }).join('');
+    }
+
+    function lerpColor(c1, c2, t) {
+      var a = hexToRgb(c1), b = hexToRgb(c2);
+      return rgbToHex(
+        a[0] + (b[0] - a[0]) * t,
+        a[1] + (b[1] - a[1]) * t,
+        a[2] + (b[2] - a[2]) * t
+      );
+    }
+
+    function update() {
+      var rect = container.getBoundingClientRect();
+      var scrolled = -rect.top;
+      var total = container.offsetHeight - window.innerHeight;
+      var progress = Math.max(0, Math.min(1, scrolled / total));
+
+      var seg = progress * (colors.length - 1);
+      var i = Math.min(Math.floor(seg), colors.length - 2);
+      var t = seg - i;
+      var color = lerpColor(colors[i], colors[i + 1], t);
+
+      for (var j = 0; j < circles.length; j++) {
+        circles[j].style.fill = color;
+      }
+
+      var firstFeatureTop = firstFeature.getBoundingClientRect().top;
+      var containerBottom = container.getBoundingClientRect().bottom;
+
+      if (firstFeatureTop < 120 && containerBottom > window.innerHeight * 0.5) {
+        visual.classList.add('is-visible');
+        visual.classList.add('is-sticky');
+      } else {
+        visual.classList.remove('is-visible');
+        visual.classList.remove('is-sticky');
+      }
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Tubular</title>
+        <style>
+            @import "tailwindcss";
+            @theme {
+                /* ... */
+                --color-bg: light-dark(white, black);
+                --color-fg: light-dark(black, white);
+            }
+            body {
+                color-scheme: light dark;
+                @apply pt-6 md:pt-0 lg:pt-0 xl:pt-0 bg-bg text-fg font-mono h-screen;
+            }
+            a {
+                @apply text-red-500 hover:underline;
+            }
+            #results e {
+                @apply block;
+            }
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                z-index: -1;
+                background-image: radial-gradient(
+                    color-mix(in oklab, var(--color-fg) 45%, transparent) 1px,
+                    transparent 1px
+                );
+
+                background-size: 16px 16px;
+                animation: bg 1s linear infinite;
+            }
+            @keyframes bg {
+                from {
+                    background-position: 0px 0px;
+                }
+                to {
+                    background-position: 16px 16px;
+                }
+            }
+        </style>
+        <script src="/coi-serviceworker.min.js"></script>
+
+    </head>
+
+    <body
+        class="flex flex-col gap-10 bg-bg items-center h-screen justify-center"
+    >
+        <pre class="text-xs">
+████████╗██╗   ██╗██████╗ ██╗   ██╗██╗      █████╗ ██████╗
+╚══██╔══╝██║   ██║██╔══██╗██║   ██║██║     ██╔══██╗██╔══██╗
+   ██║   ██║   ██║██████╔╝██║   ██║██║     ███████║██████╔╝
+   ██║   ██║   ██║██╔══██╗██║   ██║██║     ██╔══██║██╔══██╗
+   ██║   ╚██████╔╝██████╔╝╚██████╔╝███████╗██║  ██║██║  ██║
+   ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
+        </pre>
+        <div class="bg-bg w-[600px] p-2 flex flex-col items-center gap-2">
+            <h1 class="font-bold">Muxer</h1>
+            <div class="flex flex-col">
+                <span
+                    >Downloading FFmpeg WASM...
+                    <span class="hidden" id="finish-ffmpeg">DONE</span></span
+                >
+                <span class="hidden" id="audio">Downloading audio: <span id="audio-progress">0</span>%</span>
+                <span class="hidden" id="audio">Downloading video: <span id="video-progress">0</span>%</span>
+
+                <span class="hidden" id="muxing"
+                    >Muxing: <span id="muxing-progress">0</span>%</span
+                >
+            </div>
+        </div>
+    </body>
+    <script type="module">
+        import { FFmpeg } from "@ffmpeg/ffmpeg";
+        import { fetchFile, toBlobURL } from '@ffmpeg/util';
+        const baseURL =
+            "https://cdn.jsdelivr.net/npm/@ffmpeg/core-mt@0.12.10/dist/esm";
+
+        const ffmpeg = new FFmpeg();
+        async function mergeAudioVideo(video, audio) {
+            await ffmpeg.writeFile("video.mp4", video);
+            await ffmpeg.writeFile("audio.m4a", audio);
+
+            await ffmpeg.exec([
+                "-i",
+                "video.mp4",
+                "-i",
+                "audio.m4a",
+
+                // Copy both streams without re-encoding
+                "-c:v",
+                "copy",
+                "-c:a",
+                "copy",
+
+                // End when the shorter input ends
+                "-shortest",
+
+                "output.mp4",
+            ]);
+
+            const out = await ffmpeg.readFile("output.mp4");
+
+            return new Blob([out], {
+                type: "video/mp4",
+            });
+        }
+        async function downloadFileWithProgress(url, pe) {
+          const response = await fetch(url );
+          if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+          const contentLength = response.headers.get('Content-Length');
+          const totalBytes = contentLength ? parseInt(contentLength, 10) : 0;
+          const reader = response.body.getReader();
+          let receivedBytes = 0;
+          const chunks = [];
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              break;
+            }
+            chunks.push(value);
+            receivedBytes += value.length;
+            if (totalBytes > 0) {
+              const progress = ((receivedBytes / totalBytes) * 100).toFixed(2);
+              console.log(`Download progress: ${progress}%`);
+              pe.innerText = progress
+            } else {
+              console.log(`Downloaded ${receivedBytes} bytes (Unknown total size)`);
+            }
+          }
+          // 6. Combine chunks into a single Blob and trigger save
+          const blob = new Blob(chunks);
+          return new File([myBlob], "example-file." + headers.get("content-type").split(";")[0], {
+            type: headers.get("content-type"),
+            lastModified: Date.now()
+          });
+        }
+        await ffmpeg.load({
+            coreURL: await toBlobURL(
+                `${baseURL}/ffmpeg-core.js`,
+                "text/javascript",
+            ),
+            wasmURL: await toBlobURL(
+                `${baseURL}/ffmpeg-core.wasm`,
+                "application/wasm",
+            ),
+            workerURL: await toBlobURL(
+                `${baseURL}/ffmpeg-core.worker.js`,
+                "text/javascript",
+            ),
+        });
+        console.log("done")
+        const url = new URL(location.href)
+        document.getElementById("finish-ffmpeg").classList.remove("hidden");
+        document.getElementById("audio").classList.remove("hidden");
+        const audio = await downloadFileWithProgress("https://tubular.pearnet.workers.dev/cors-proxy?url=" + encodeURIComponent(url.searchParams.get("a")), document.getElementById("audio-progress"))
+        const video = await downloadFileWithProgress("https://tubular.pearnet.workers.dev/cors-proxy?url=" + encodeURIComponent(url.searchParams.get("v")), document.getElementById("video-progress"))
+
+    </script>
+</html>

@@ -1,24 +1,46 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tubular</title>
-        <style>
-        @import "tailwindcss";
-        @theme {
-            /* ... */
-            --color-bg: light-dark(white, black);
-            --color-fg: light-dark(black, white);
-        }
-        body {
-            color-scheme: light dark;
-            @apply pt-6 md:pt-0 lg:pt-0 xl:pt-0 bg-bg text-fg font-mono h-screen;
-        }</style>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tubular</title>
+    <style>
+      @import "tailwindcss";
+      @theme {
+        /* ... */
+        --color-bg: light-dark(white, black);
+        --color-fg: light-dark(black, white);
+      }
+      body {
+        color-scheme: light dark;
+        @apply pt-6 md:pt-0 lg:pt-0 xl:pt-0 bg-bg text-fg font-mono h-screen relative isolate;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: radial-gradient(
+          color-mix(in oklab, var(--color-fg) 45%, transparent) 1px,
+          transparent 1px
+        );
+        background-size: 16px 16px;
 
-    <body class="flex flex-col gap-10 bg-bg items-center h-screen justify-center">
-        <pre class="text-xs">
+        animation: bg 1s linear infinite;
+      }
+      @keyframes bg {
+        from {
+          background-position: 0px 0px;
+        }
+        to {
+          background-position: 16px 16px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="flex flex-col gap-10 bg-bg items-center h-screen justify-center">
+    <pre class="text-xs">
 ████████╗██╗   ██╗██████╗ ██╗   ██╗██╗      █████╗ ██████╗
 ╚══██╔══╝██║   ██║██╔══██╗██║   ██║██║     ██╔══██╗██╔══██╗
    ██║   ██║   ██║██████╔╝██║   ██║██║     ███████║██████╔╝
@@ -26,18 +48,29 @@
    ██║   ╚██████╔╝██████╔╝╚██████╔╝███████╗██║  ██║██║  ██║
    ╚═╝    ╚═════╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝
         </pre>
-        <div class="bg-fg/10 w-[600px] p-2 flex items-center gap-2">
-            <input id="url" placeholder="Enter a YouTube URL" class="focus:border-red-500 focus:outline-none transition-colors py-1 px-2 rounded-none border-fg/50 border-2 grow" />
-            <button onclick="redirect()" class="py-1 px-2 rounded-none bg-red-500 text-fg">DOWNLOAD</button>
-        </div>
-    </body>
-    <script>
-      function redirect() {
-        try {
-          const url = new URL(document.getElementById("url").value)
-          const v = url.searchParams.get("v")
-          location.href = "/tubular/results.html?v=" + v
-        } catch(err) {}
-      }
-    </script>
+    <form id="form" class="bg-bg w-[600px] p-2 flex items-center gap-2 z-10">
+      <input
+        id="url"
+        placeholder="Enter a YouTube URL"
+        class="focus:border-red-500 focus:outline-none transition-colors py-1 px-2 rounded-none border-fg/50 border-2 grow"
+      />
+      <button type="submit" class="py-1 px-2 rounded-none bg-red-500 text-fg">
+        DOWNLOAD
+      </button>
+    </form>
+  </body>
+  <script>
+    function redirect() {
+      try {
+        const url = new URL(document.getElementById("url").value);
+        const v = url.searchParams.get("v");
+        if (!v) return;
+        location.href = "/tubular/results.html?v=" + v;
+      } catch (err) {}
+    }
+    document.getElementById("form").onsubmit = (e) => {
+      e.preventDefault();
+      redirect();
+    };
+  </script>
 </html>

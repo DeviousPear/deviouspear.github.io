@@ -129,18 +129,18 @@
 
     <!-- Hero Section -->
     <section
-      class="flex justify-around pt-[180px] pb-[15px] gap-[46px]"
+      class="flex justify-around pt-[150px] px-10 pb-3.75 gap-11.5 w-screen"
     >
-        <div class="grow flex items-center justify-center perspective-midrange">
+        <div class="grow items-center justify-center perspective-midrange hidden md:flex">
             <div class="rounded-3xl bg-white/5 p-6 " style="transform: rotateX(345deg) rotateY(330deg) rotateZ(2deg);box-shadow: -13px 13px 0px 5px #000000;">
             <img src="assets/tc-icon.png" class="w-32 h-32"/>
              </div>
         </div>
       <div class="flex flex-col items-center gap-10 grow">
         <h1
-          class="font-jakarta text-center font-bold text-6xl leading-[1.172] w-[714px] max-w-full"
+          class="font-jakarta text-center font-bold text-4xl md:text-6xl leading-[1.172] max-w-full"
         >
-          The better way to see your
+          The best way to see your
           <span class="inline-block overflow-hidden align-bottom h-[1.4em]">
             <span
               class="inline-flex flex-col gap-10 [animation:flip-words_12.5s_cubic-bezier(0.22,1,0.36,1)_2s_infinite]"
@@ -206,7 +206,7 @@
           </a>
         </div>
       </div>
-      <div class="grow flex items-center justify-center perspective-midrange">
+      <div class="grow items-center justify-center perspective-midrange hidden md:flex">
           <div class="rounded-3xl bg-white/5 p-0" style="transform: rotateX(345deg) rotateY(35deg) rotateZ(2deg);box-shadow: 13px 13px 0px 5px #000000;">
           <img src="assets/widget.png" class="h-32"/>
            </div>
@@ -214,8 +214,8 @@
     </section>
 
     <!-- Features Wrapper -->
-    <div class="relative max-w-[1280px] mx-auto px-[10px]">
-      <div class="grid grid-cols-2 grid-rows-1 gap-0 max-md:grid-cols-1">
+    <div class="relative mx-auto px-[10px]" id="fr">
+      <div class="grid md:grid-cols-2 grid-cols-1 grid-rows-1 gap-0 max-md:grid-cols-1">
         <div class="min-w-0">
           <section
             class="min-h-screen flex flex-col justify-center gap-[37px] p-10 max-md:min-h-[70vh] max-md:px-5 max-md:py-10 max-md:relative max-md:z-10"
@@ -270,7 +270,7 @@
             </p>
           </section>
         </div>
-        <div class="w-full sticky top-20 h-screen">
+        <div class="w-full sticky top-20 h-screen flex items-center justify-center">
           <svg
             viewBox="0 0 583 680"
             fill="none"
@@ -284,18 +284,23 @@
             <circle cx="400" cy="420" r="109" fill="currentColor" />
             <circle cx="300" cy="560" r="109" fill="currentColor" />
           </svg>
-          <img
-            src="assets/feature-bg.png"
-            alt="Feature"
-            class="inset-0 w-full h-full object-scale-down"
-          />
+          <div class="inset-0 rounded-[60px] border-black border-8 w-fit overflow-hidden h-full p-0" style="transform: rotateX(345deg) rotateY(35deg) rotateZ(2deg) scale(65%);box-shadow: 13px 13px 0px 5px #000000;">
+            <video
+                id="feature-video"
+                src="assets/simulated.mp4"
+                alt="Feature"
+                class="w-full h-full"
+                playsinline
+                preload="auto"
+            ></video>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CTA Section -->
     <section
-      class="relative flex flex-col items-center justify-center gap-[26px] p-[10px] min-h-[392px] w-full max-w-[1280px] mx-auto"
+      class="relative flex flex-col items-center justify-center gap-[26px] p-[10px] min-h-96 w-full mx-auto"
     >
       <div class="cta-bg"></div>
       <div class="relative z-10 flex flex-col items-center gap-[26px]">
@@ -320,13 +325,13 @@
 
     <!-- Footer -->
     <footer
-      class="border-t border-white/70 w-full max-w-[1280px] mx-auto p-[10px] flex items-center justify-between mt-[10px] max-md:flex-col max-md:gap-[10px] max-md:text-center"
+      class="border-t border-white/70 w-full  mx-auto p-3 flex items-center justify-between mt-[10px] max-md:flex-col max-md:gap-[10px] max-md:text-center"
     >
-      <div class="flex items-center gap-[10px]">
+      <div class="flex items-center gap-3">
         <img
           src="assets/footer-icon.png"
           alt=""
-          class="w-[31px] h-[31px] rounded-[7px] object-cover"
+          class="w-8 h-8 rounded-lg object-cover"
         />
         <span class="font-inter text-[16px] text-white/70 whitespace-nowrap"
           >Transcendent Campus &copy; 2026</span
@@ -337,4 +342,21 @@
       </span>
     </footer>
   </body>
+  <script>
+    const video = document.getElementById("feature-video");
+    const wrapper = document.getElementById("fr");
+
+    video.addEventListener("loadedmetadata", () => {
+      window.addEventListener("scroll", () => {
+        const rect = wrapper.getBoundingClientRect();
+        const wrapperTop = rect.top;
+        const wrapperHeight = rect.height;
+        const viewportHeight = window.innerHeight;
+        const scrolled = -wrapperTop;
+        const scrollableDistance = wrapperHeight - viewportHeight;
+        const progress = Math.min(Math.max(scrolled / scrollableDistance, 0), 1);
+        video.currentTime = progress * video.duration;
+      });
+    });
+  </script>
 </html>

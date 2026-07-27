@@ -4,27 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Transcendent Campus</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playwrite+US+Modern:wght@400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              jakarta: ['"Plus Jakarta Sans"', "sans-serif"],
-              playwrite: ['"Playwrite US Modern"', "cursive"],
-              inter: ["Inter", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
     <style>
+    @import "tailwindcss";
+        @theme {
+            --font-sans: "Plus Jakarta Sans", sans-serif;
+            --font-display: "Playwrite US Modern", cursive;
+        }
       @keyframes flip-words {
         0%,
         15% {
@@ -32,19 +23,19 @@
         }
         20%,
         35% {
-          transform: translateY(-2.025em);
+          transform: translateY(-2.5em);
         }
         40%,
         55% {
-          transform: translateY(-4.05em);
+          transform: translateY(-5.5em);
         }
         60%,
         75% {
-          transform: translateY(-6.075em);
+          transform: translateY(-8em);
         }
         80%,
         95% {
-          transform: translateY(-8.1em);
+          transform: translateY(-11em);
         }
         100% {
           transform: translateY(0);
@@ -83,6 +74,17 @@
         animation: color-anim linear;
         animation-timeline: view(y);
       }
+      .wiggle {
+          animation: wiggle 3s ease-in-out infinite alternate;
+      }
+      @keyframes wiggle {
+          0% {
+              translate: 0 -12px;
+          }
+          100% {
+              translate: 0 12px;
+          }
+      }
       @keyframes color-anim {
         0% {
           color: red;
@@ -102,7 +104,7 @@
       }
     </style>
   </head>
-  <body class="bg-[#111116] font-inter text-white overflow-x-hidden">
+  <body class="bg-[#111116]  text-white overflow-x-hidden">
     <!-- Navigation -->
     <nav
       class="bg-white/5 backdrop-blur-3xl fixed top-[10px] left-[10px] right-[10px] z-50 h-[58px] rounded-[21px] flex items-center px-[14px]"
@@ -113,7 +115,7 @@
         class="w-[30px] h-[30px] rounded-[7px] object-cover"
       />
       <span
-        class="font-jakarta font-bold text-[20px] ml-[12px] whitespace-nowrap"
+        class=" font-bold text-[20px] ml-[12px] whitespace-nowrap"
         >Transcendent Campus</span
       >
       <div class="flex-1"></div>
@@ -123,7 +125,7 @@
         class="bg-[rgba(238,238,238,0.13)] rounded-[15px] py-[9px] px-[18px] inline-flex items-center gap-[6px] cursor-pointer transition-opacity hover:opacity-[0.85]"
       >
         <img src="assets/github-icon.svg" alt="" class="w-[20px] h-[20px]" />
-        <span class="font-inter text-[14px] text-[#f5f5f5]">GitHub</span>
+        <span class=" text-[14px] text-[#f5f5f5]">GitHub</span>
       </a>
     </nav>
 
@@ -132,41 +134,41 @@
       class="flex justify-around pt-[150px] px-10 pb-3.75 gap-11.5 w-screen"
     >
         <div class="grow items-center justify-center perspective-midrange hidden md:flex">
-            <div class="rounded-3xl bg-white/5 p-6 " style="transform: rotateX(345deg) rotateY(330deg) rotateZ(2deg);box-shadow: -13px 13px 0px 5px #000000;">
+            <div class="rounded-[46px] bg-white/5 p-6 wiggle" style="transform: rotateX(10deg) rotateY(15deg) rotateZ(2deg);box-shadow: -13px 13px 0px 5px #000000;animation-delay: 1.5s;translate: 0 -12px;">
             <img src="assets/tc-icon.png" class="w-32 h-32"/>
              </div>
         </div>
       <div class="flex flex-col items-center gap-10 grow">
         <h1
-          class="flex flex-col font-jakarta text-center font-bold text-4xl md:text-6xl leading-[1.172] max-w-full"
+          class="flex flex-col  text-center font-bold text-4xl md:text-6xl leading-[1.172] max-w-full"
         >
           The best way to see your
-          <span class="inline-block overflow-hidden align-bottom h-[1.4em]">
+          <span class="inline-block overflow-hidden align-bottom h-[2em]">
             <span
               class="inline-flex flex-col gap-10 [animation:flip-words_12.5s_cubic-bezier(0.22,1,0.36,1)_2s_infinite]"
             >
               <span
-                class="block h-[1.4em] leading-[1.4] font-playwrite font-normal"
+                class="block h-[2em] leading-[2] font-display font-normal"
                 style="color: #3fbc45"
                 >grades</span
               >
               <span
-                class="block h-[1.4em] leading-[1.4] font-playwrite font-normal"
+                class="block h-[2em] leading-[2] font-display font-normal"
                 style="color: #00c3d0"
                 >GPA</span
               >
               <span
-                class="block h-[1.4em] leading-[1.4] font-playwrite font-normal"
+                class="block h-[2em] leading-[2] font-display font-normal"
                 style="color: #f6de56"
                 >assignments</span
               >
               <span
-                class="block h-[1.4em] leading-[1.4] font-playwrite font-normal"
+                class="block h-[2em] leading-[2] font-display font-normal"
                 style="color: #a78bfa"
                 >schedule</span
               >
               <span
-                class="block h-[1.4em] leading-[1.4] font-playwrite font-normal"
+                class="block h-[2em] leading-[2] font-display font-normal"
                 style="color: #f472b6"
                 >transcript</span
               >
@@ -174,7 +176,7 @@
           >
         </h1>
         <p
-          class="font-inter text-[24px] text-white/75 text-center whitespace-nowrap"
+          class=" text-[24px] text-white/75 text-center whitespace-nowrap"
         >
           The iOS-native client for Infinite Campus
         </p>
@@ -188,7 +190,7 @@
               alt=""
               class="w-[14px] h-[17px] object-cover"
             />
-            <span class="font-inter text-[14px] text-black">Install</span>
+            <span class=" text-[14px] text-black">Install</span>
           </a>
           <a
             href="https://github.com/DeviousPear/TranscendentCampus"
@@ -200,14 +202,14 @@
               alt=""
               class="w-[20px] h-[20px]"
             />
-            <span class="font-inter text-[14px] text-[#f5f5f5]"
+            <span class=" text-[14px] text-[#f5f5f5]"
               >View Source</span
             >
           </a>
         </div>
       </div>
       <div class="grow items-center justify-center perspective-midrange hidden md:flex">
-          <div class="rounded-3xl bg-white/5 p-0" style="transform: rotateX(345deg) rotateY(35deg) rotateZ(2deg);box-shadow: 13px 13px 0px 5px #000000;">
+          <div class="rounded-3xl bg-white/5 p-0 wiggle" style="transform: rotateX(17deg) rotateY(350deg) rotateZ(2deg);box-shadow: 13px 13px 0px 5px #000000;">
           <img src="assets/widget.png" class="h-32"/>
            </div>
       </div>
@@ -221,11 +223,11 @@
             class="min-h-screen flex flex-col justify-center gap-[37px] p-10 max-md:min-h-[70vh] max-md:px-5 max-md:py-10 max-md:relative max-md:z-10"
           >
             <h2
-              class="font-jakarta font-bold text-6xl"
+              class=" font-bold text-6xl"
             >
               100% Compatible
             </h2>
-            <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+            <p class=" text-[24px] text-white/60 leading-[1.6]">
               Transcendent Campus plugs into your real Infinite Campus account,
               so your the app accurately displays your grades. All you have to
               do is log in with Google, and the app will take care of the rest.
@@ -234,10 +236,10 @@
           <section
             class="min-h-screen flex flex-col justify-center gap-[37px] p-10 max-md:min-h-[70vh] max-md:px-5 max-md:py-10 max-md:relative max-md:z-10"
           >
-            <h2 class="font-jakarta font-bold text-6xl leading-[1.172]">
+            <h2 class=" font-bold text-6xl leading-[1.172]">
               iOS Native
             </h2>
-            <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+            <p class=" text-[24px] text-white/60 leading-[1.6]">
               Unlike the official app, Transcendent Campus was designed with iOS
               in mind. It's design is consistent with the rest of iOS, and is
               written in native Swift and SwiftUI, while the official app is
@@ -248,22 +250,22 @@
           <section
             class="min-h-screen flex flex-col justify-center gap-[37px] p-10 max-md:min-h-[70vh] max-md:px-5 max-md:py-10 max-md:relative max-md:z-10"
           >
-            <h2 class="font-jakarta font-bold text-6xl leading-[1.172]">
-              Widgets
+            <h2 class=" font-bold text-6xl leading-[1.172]">
+              Widgets + Siri
             </h2>
-            <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+            <p class=" text-[24px] text-white/60 leading-[1.6]">
               Check your grades at a glance with simple widgets that show your
-              grades on your home screen. It's such a obviously good idea that I
-              have no idea why they didn't put this in the original app.
+              grades on your home screen. Ask Siri about tomrrow's schedule, or the grade you got on that test. Such obviously good ideas that I
+              have no idea why they didn't put them in the original app.
             </p>
           </section>
           <section
             class="min-h-screen flex flex-col justify-center gap-[37px] p-10 max-md:min-h-[70vh] max-md:px-5 max-md:py-10 max-md:relative max-md:z-10"
           >
-            <h2 class="font-jakarta font-bold text-6xl leading-[1.172]">
+            <h2 class=" font-bold text-6xl leading-[1.172]">
               Social
             </h2>
-            <p class="font-inter text-[24px] text-white/60 leading-[1.2]">
+            <p class=" text-[24px] text-white/60 leading-[1.6]">
               Transcendent Campus adds social features you wish Infinite Camus
               had, like checking what classes your friends are in, or sharing
               your grades and advice on a test.
@@ -305,7 +307,7 @@
       <div class="cta-bg"></div>
       <div class="relative z-10 flex flex-col items-center gap-[26px]">
         <h2
-          class="font-jakarta font-bold text-[42px] text-white/78 text-center leading-[1.2]"
+          class=" font-bold text-[42px] text-white/78 text-center leading-[1.6]"
         >
           Download it now
         </h2>
@@ -318,7 +320,7 @@
             alt=""
             class="w-[14px] h-[17px] object-cover"
           />
-          <span class="font-inter text-[14px] text-black">Install</span>
+          <span class=" text-[14px] text-black">Install</span>
         </a>
       </div>
     </section>
@@ -333,12 +335,12 @@
           alt=""
           class="w-8 h-8 rounded-lg object-cover"
         />
-        <span class="font-inter text-[16px] text-white/70 whitespace-nowrap"
+        <span class=" text-[16px] text-white/70 whitespace-nowrap"
           >Transcendent Campus &copy; 2026</span
         >
       </div>
-      <span class="font-inter text-[16px] text-white/70 whitespace-nowrap">
-        Built by <span class="text-[#3fbc45]">@DeviousPear</span>
+      <span class=" text-[16px] text-white/70 whitespace-nowrap">
+        Designed and mostly implemented by <span class="text-[#3fbc45]">@DeviousPear</span>
       </span>
     </footer>
   </body>

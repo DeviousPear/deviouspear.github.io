@@ -81,10 +81,14 @@
           <div class="border-b-2 border-current" onclick="select('mux', event)">
             MUX
           </div>
+          <div class="border-b-2 border-current" onclick="select('hls', event)">
+            HLS
+          </div>
         </div>
         <div id="results-premuxed" class="flex flex-col"></div>
         <div id="results-audio" class="hidden flex flex-col"></div>
         <div id="results-video" class="hidden flex flex-col"></div>
+        <div id="results-hls" class="hidden flex flex-col"><a id="hls">HLS streaming link</a></div>
         <form
           id="results-mux"
           class="hidden flex flex-col gap-3"
@@ -138,6 +142,7 @@
       document.getElementById("results-audio").classList.add("hidden");
       document.getElementById("results-mux").classList.add("hidden");
       document.getElementById("results-video").classList.add("hidden");
+      document.getElementById("results-hls").classList.add("hidden");
       document.getElementById("results-" + x).classList.remove("hidden");
     };
     const link = document.getElementById("link");
@@ -149,7 +154,7 @@
     );
     console.log(data);
 
-    data.formats.forEach((i) => {
+    data.formats?.forEach((i) => {
       const e = document.createElement("a");
       e.innerText = `${i.mimeType.split(";")[0]} - ${i.qualityLabel}`;
       e.href = i.url;
@@ -181,5 +186,6 @@
         opt.innerText = `${i.qualityLabel} - bitrate:${i.bitrate}`;
         document.getElementById("video-select").appendChild(opt);
       });
+      document.getElementById("hls").href = data.hlsManifestUrl
   </script>
 </html>
